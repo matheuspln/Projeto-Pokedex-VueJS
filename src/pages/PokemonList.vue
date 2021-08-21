@@ -1,59 +1,36 @@
 <template>
   <main>
       <ul>
-          <li :class="statsList[index].types[0].type.name" v-for="(numero, index) in statsList" :key="index">
-              <a href="/">
-                <img :src="statsList[index].sprites.front_default">
-                <span class="textoPokemon">
-                    <span class="topInfo">
-                        <h1 class="dexNumber">#{{statsList[index].id}}</h1>
-                        <h2 class="pokemonName">{{statsList[index].name}}</h2>
-                    </span>
-                    <div v-if="statsList[index].types.length==2" class="pokemonType dualType">
-                        <h3>{{statsList[index].types[0].type.name}}</h3>
-                        <h4>{{statsList[index].types[1].type.name}}</h4>
-                    </div>
-                    <div v-if="statsList[index].types.length<2" class="pokemonType singleType">
-                        <h3>{{statsList[index].types[0].type.name}}</h3>
-                    </div>
-                </span>
-              </a>
-          </li>
+        <li v-for="(pokemon, index) in pokemonList" :key="index">
+          <PokemonItem
+              :pokemon-url="pokemon.url"
+              :name="pokemon.name"
+          />
+        </li>
       </ul>
   </main>
 </template>
 
 <script>
 import api from '@/services/api.js'
+import PokemonItem from "../components/PokemonItem";
 export default {
     name: 'PokemonList',
-    
-    data () {
+    components: {
+      PokemonItem
+    },
+  data () {
         return {
-            finalList: [],
+            pokemonList: [],
             statsList:[],
+            limit: 30,
         }
     },
-
-    methods: { 
-        getStats:function(){
-            let url = ""
-            //let statsAux = []
-            for(let i=0;i<20;i++){
-                url=(this.finalList[0][i].url)
-                api.get(url).then(response =>{
-                    this.statsList.push(response.data)
-                })
-            }
-
-        }
-    },
-    mounted(){
-        api.get('pokemon?limit=20').then(response=>{
-            this.finalList.push(response.data.results)
-            this.getStats()
-        })
-    }
+  mounted() {
+    api.get('pokemon?limit=' + this.limit).then(response => {
+      this.pokemonList = response.data.results
+    })
+  }
 }
 </script>
 
