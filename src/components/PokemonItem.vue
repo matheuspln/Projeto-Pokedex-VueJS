@@ -1,19 +1,21 @@
 <template>
   <li :class="details.types[0].type.name">
-    <img :src="details.sprites.front_default">
-        <span class="textoPokemon">
-            <span class="topInfo">
-                <h1 class="dexNumber">#{{details.id}}</h1>
-                <h2 class="pokemonName">{{name}}</h2>
-            </span>
-            <div v-if="details.types.length==2" class="pokemonType dualType">
-                <h3>{{ details.types[0].type.name }}</h3>
-                <h4>{{ details.types[1].type.name }}</h4>
-            </div>
-            <div v-if="details.types.length<2" class="pokemonType singleType">
-                <h3>{{ details.types[0].type.name }}</h3>
-            </div>
-        </span>
+    <a href="/" v-on:click.prevent="">
+      <img :src="details.sprites.front_default">
+          <span class="textoPokemon">
+              <span class="topInfo">
+                  <h1 class="dexNumber">#{{details.id}}</h1>
+                  <h2 class="pokemonName">{{name}}</h2>
+              </span>
+              <div v-if="details.types.length==2" class="pokemonType dualType">
+                  <h3>{{ details.types[0].type.name }}</h3>
+                  <h4>{{ details.types[1].type.name }}</h4>
+              </div>
+              <div v-if="details.types.length<2" class="pokemonType singleType">
+                  <h3>{{ details.types[0].type.name }}</h3>
+              </div>
+          </span>
+    </a>
   </li>
 </template>
 
@@ -36,20 +38,16 @@ export default {
     });
   }
 }
-
-;
 </script>
 
-<style>
-
-
-@media (min-width: 700px) {
+<style scoped>
+/* @media (min-width: 700px) {
   li {
     width: 450px;
     margin: 0 20px;
   }
 }
-
+ */
 
 li {
   border-radius: 25px;
@@ -57,6 +55,7 @@ li {
   margin: 20px 0;
   box-shadow: 10px 5px 8px black;
   transition: 0.2s;
+  padding: 20px;
 }
 
 li:hover {
@@ -72,7 +71,8 @@ a {
 }
 
 li a img {
-  width: 120px;
+  height: 120px;
+  max-width: 100%;
 }
 
 .dexNumber,
@@ -112,12 +112,14 @@ a:hover {
   padding: 4px 0;
 }
 
-.singleType h3 {
-  padding: 0 100px;
+.singleType {
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
 }
 
 .dualType h3, h4 {
-  font-size: 20px;
+  font-size: 10px;
   display: inline;
   padding: 0 20px;
 }
@@ -127,9 +129,10 @@ a:hover {
 }
 
 .pokemonName {
-  font-size: 1.5em;
+  font-size: 150%;
   margin: 10px 0;
   text-transform: capitalize;
+  word-break: break-all;
 }
 
 .bug {
