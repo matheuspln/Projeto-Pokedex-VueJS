@@ -32,23 +32,20 @@ export default {
       details: []
     }
   },
+  methods: {
+    generatePokemon() {
+      axios.get(this.pokemonUrl).then(response => {
+        this.details = response.data;
+      });
+    }
+  },
   mounted() {
-    axios.get(this.pokemonUrl).then(response => {
-      this.details = response.data;
-    });
+    this.generatePokemon()
   }
 }
 </script>
 
 <style scoped>
-/* @media (min-width: 700px) {
-  li {
-    width: 450px;
-    margin: 0 20px;
-  }
-}
- */
-
 li {
   border-radius: 25px;
   display: flex;
@@ -132,7 +129,8 @@ a:hover {
   font-size: 150%;
   margin: 10px 0;
   text-transform: capitalize;
-  word-break: break-all;
+  word-break: keep-all;
+   
 }
 
 .bug {

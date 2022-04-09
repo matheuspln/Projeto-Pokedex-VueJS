@@ -1,66 +1,58 @@
 <template>
   <main>
-      <Pages @changeP="changePage($event)" />
-
-      <ul class="listIndex">
-          <PokemonItem v-for="(pokemon, index) in pokemonList" :key="index"
-              :pokemon-url="pokemon.url"
-              :name="pokemon.name"
-          />
-      </ul>
-
-      <Pages @changeP="changePage($event)" />
+      <div id="pageLoader" v-if="loading">
+        <img src="../assets/icon.png">
+      </div>
+      <div id="listArea">
+        <ul class="listIndex">
+            <PokemonItem v-for="(pokemon, index) in pokemonList" :key="index"
+                :pokemon-url="pokemon.url"
+                :name="pokemon.name"
+            />
+        </ul>
+      </div>
   </main>
 </template>
 
 <script>
 import api from '@/services/api.js'
 import PokemonItem from "../components/PokemonItem";
-import Pages from "../components/Pages";
 export default {
   name: 'PokemonList',
   components: {
-    PokemonItem,
-    Pages
+    PokemonItem
   },
   data () {
     return {
       pokemonList: [],
       statsList:[],
-      limit: 100,
+      limit: 30,
       offset: 0,
-      page: 1
+      loading: false
     }
   },
   methods: {
-    changePage: function (page) {
-      this.page = page
-      this.getPokemon()
-    },
-    getPokemon: function (){
-      for (let i=1;i<10;i++){
-        if (this.page == 1){
-          this.offset=0
-          this.checkFinalPage()
-        } else if (this.page == i){
-          this.offset=(i*100)-100
-          this.checkFinalPage()
-        }
-      }
-      api.get(`pokemon?limit=${this.limit}&offset=${this.offset}`).then(response => {
+    async getPokemon (){
+      this.loading = true
+      await api.get(`pokemon?limit=${this.limit}&offset=${this.offset}`).then(response => {
         this.pokemonList = response.data.results
       })
+      this.loading = false
     },
-    checkFinalPage:function (){
-      if(this.page==9){
-        this.limit = 98
-      } else {
-        this.limit = 100
+    scroll () {
+      window.onscroll = () => {
+        let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight
+
+        if (bottomOfWindow) {
+          this.limit+=30
+          this.getPokemon()
+        }
       }
     }
   },
   mounted() {
     this.getPokemon()
+    this.scroll()
   }
 }
 </script>
@@ -81,9 +73,51 @@ export default {
         }
     }
 
+    @media (min-width: 480px) {
+        #pageLoader img {
+          width: 20%;
+        }
+    }
+
+    @media (min-width: 1000px) {
+        .listIndex {
+            width: 80%;
+        }
+
+        #pageLoader img {
+          width: 5%;
+        }
+    }
+
+    #listArea {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     main {
       padding: 20px 50px;
     }
 
+    #pageLoader {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #pageLoader img {
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
 </style>
