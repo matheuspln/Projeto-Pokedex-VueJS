@@ -1,42 +1,42 @@
 <template>
   <li :class="details.types[0].type.name">
     <a href="/" v-on:click.prevent="">
-      <img :src="details.sprites.front_default">
-          <span class="textoPokemon">
-              <span class="topInfo">
-                  <h1 class="dexNumber">#{{details.id}}</h1>
-                  <h2 class="pokemonName">{{name}}</h2>
-              </span>
-              <div v-if="details.types.length==2" class="pokemonType dualType">
-                  <h3>{{ details.types[0].type.name }}</h3>
-                  <h4>{{ details.types[1].type.name }}</h4>
-              </div>
-              <div v-if="details.types.length<2" class="pokemonType singleType">
-                  <h3>{{ details.types[0].type.name }}</h3>
-              </div>
-          </span>
+      <img :src="details.sprites.front_default" />
+      <span class="textoPokemon">
+        <span class="topInfo">
+          <h1 class="dexNumber">#{{ details.id }}</h1>
+          <h2 class="pokemonName">{{ name }}</h2>
+        </span>
+        <div v-if="details.types.length == 2" class="pokemonType dualType">
+          <h3>{{ details.types[0].type.name }}</h3>
+          <h4>{{ details.types[1].type.name }}</h4>
+        </div>
+        <div v-if="details.types.length < 2" class="pokemonType singleType">
+          <h3>{{ details.types[0].type.name }}</h3>
+        </div>
+      </span>
     </a>
   </li>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios'
 export default {
-  name: "PokemonItem",
+  name: 'PokemonItem',
   props: {
     name: String,
-    pokemonUrl: String,
+    pokemonUrl: String
   },
-  data () {
+  data() {
     return {
       details: []
     }
   },
   methods: {
     generatePokemon() {
-      axios.get(this.pokemonUrl).then(response => {
-        this.details = response.data;
-      });
+      axios.get(this.pokemonUrl).then((response) => {
+        this.details = response.data
+      })
     }
   },
   mounted() {
@@ -74,7 +74,7 @@ li a img {
 
 .dexNumber,
 .pokemonName,
-.singleType{
+.singleType {
   display: inline;
 }
 
@@ -115,7 +115,8 @@ a:hover {
   font-size: 10px;
 }
 
-.dualType h3, h4 {
+.dualType h3,
+h4 {
   font-size: 10px;
   display: inline;
   padding: 0 20px;
@@ -130,7 +131,6 @@ a:hover {
   margin: 10px 0;
   text-transform: capitalize;
   word-break: keep-all;
-   
 }
 
 .bug {

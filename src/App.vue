@@ -6,12 +6,9 @@
 </template>
 
 <script>
-
-
 import Header from '@/components/Header.vue'
 import PokemonList from '@/pages/PokemonList.vue'
 import '@/global.css'
-
 
 export default {
   name: 'App',
@@ -22,6 +19,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
