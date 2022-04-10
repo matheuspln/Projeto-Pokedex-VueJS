@@ -4,7 +4,7 @@
       <img src="../assets/icon.png" />
     </div>
     <div id="listArea">
-      <ul class="listIndex">
+      <ul id="listIndex">
         <PokemonItem
           v-for="(pokemon, index) in pokemonList"
           :key="index"
@@ -55,8 +55,13 @@ export default {
           document.documentElement.offsetHeight
 
         if (bottomOfWindow) {
-          this.limit += 30
-          this.getPokemon()
+          if (this.limit < 870) {
+            this.limit += 30
+            this.getPokemon()
+          } else if (this.limit == 870) {
+            this.limit += 28
+            this.getPokemon()
+          }
         }
       }
     }
@@ -69,7 +74,7 @@ export default {
 </script>
 
 <style scoped>
-.listIndex {
+#listIndex {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 20px;
@@ -78,7 +83,7 @@ export default {
 }
 
 @media (max-width: 700px) {
-  .listIndex {
+  #listIndex {
     grid-template-columns: 1fr;
   }
 }
@@ -87,10 +92,28 @@ export default {
   #pageLoader img {
     width: 20%;
   }
+
+  main {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  #listArea {
+    width: 100%;
+  }
+
+  #listIndex {
+    width: 100%;
+  }
+
+  main {
+    padding: 20px;
+  }
 }
 
 @media (min-width: 1000px) {
-  .listIndex {
+  #listIndex {
     width: 80%;
   }
 
@@ -103,10 +126,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-main {
-  padding: 20px 50px;
 }
 
 #pageLoader {
