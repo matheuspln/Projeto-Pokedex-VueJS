@@ -1,7 +1,7 @@
 <template>
   <div id="tipos">
     <div v-for="(tipo, index) in tipos" :key="index" class="tipo">
-      <a href="" :id="tipo" v-on:click.prevent="changeType(tipo)">
+      <a href="" :class="tipo" v-on:click.prevent="changeType(tipo)">
         <img
           :src="`https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/${tipo}.svg`"
         />
@@ -14,33 +14,33 @@
 </template>
 
 <script>
-import api from '@/services/api.js'
+import api from "@/services/api.js";
 
 export default {
-  name: 'ListaTipos',
+  name: "ListaTipos",
   data() {
     return {
       tipos: [],
-      showType: 'clear'
-    }
+      showType: "clear",
+    };
   },
   methods: {
     getTipos: function () {
-      api.get('type').then((response) => {
-        let temp = response.data.results
+      api.get("type").then((response) => {
+        let temp = response.data.results;
         for (let i = 0; i < 18; i++) {
-          this.tipos.push(temp[i].name)
+          this.tipos.push(temp[i].name);
         }
-      })
+      });
     },
     changeType: function (tipo) {
-      this.showType = tipo
-    }
+      this.showType = tipo;
+    },
   },
   mounted() {
-    this.getTipos()
-  }
-}
+    this.getTipos();
+  },
+};
 </script>
 
 <style scoped>
@@ -87,60 +87,5 @@ h6 {
 
 a:hover {
   opacity: 0.8;
-}
-
-#bug {
-  background-color: #92bd2d;
-}
-#dark {
-  background-color: #595761;
-}
-#dragon {
-  background-color: #0c6ac8;
-}
-#electric {
-  background-color: #f2d94e;
-}
-#fairy {
-  background-color: #ef90e6;
-}
-#fighting {
-  background-color: #d3425f;
-}
-#fire {
-  background-color: #fba64c;
-}
-#flying {
-  background-color: #a1bbec;
-}
-#ghost {
-  background-color: #5f6dbc;
-}
-#grass {
-  background-color: #60bd58;
-}
-#ground {
-  background-color: #da7c4d;
-}
-#ice {
-  background-color: #73d0c2;
-}
-#normal {
-  background-color: #a0a29f;
-}
-#poison {
-  background-color: #b763cf;
-}
-#psychic {
-  background-color: #fa8582;
-}
-#rock {
-  background-color: #c9bc8a;
-}
-#steel {
-  background-color: #5795a3;
-}
-#water {
-  background-color: #539ddf;
 }
 </style>

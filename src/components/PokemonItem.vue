@@ -1,6 +1,6 @@
 <template>
   <li :class="details.types[0].type.name">
-    <router-link :to="`/stats/?q=${pokemonUrl}`">
+    <router-link :to="`/stats/?q=${details.id}`">
       <img :src="details.sprites.front_default" />
       <span class="textoPokemon">
         <span class="topInfo">

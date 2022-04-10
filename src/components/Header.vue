@@ -44,6 +44,7 @@ export default {
 
 <style scoped>
 header {
+  width: 100%;
   height: 60px;
   display: flex;
   flex-direction: row;

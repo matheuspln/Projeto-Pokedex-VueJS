@@ -14,7 +14,7 @@ const routes = [
   {
     path: "/stats",
     component: PokemonPage,
-    props: (route) => ({ pokemonUrl: route.query.q }),
+    props: (route) => ({ pokemon: route.query.q }),
   },
 ];
 
