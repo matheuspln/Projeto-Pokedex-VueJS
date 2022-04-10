@@ -1,6 +1,6 @@
 <template>
   <li :class="details.types[0].type.name">
-    <a href="/" v-on:click.prevent="">
+    <router-link :to="`/stats/?q=${pokemonUrl}`">
       <img :src="details.sprites.front_default" />
       <span class="textoPokemon">
         <span class="topInfo">
@@ -15,34 +15,34 @@
           <h3>{{ details.types[0].type.name }}</h3>
         </div>
       </span>
-    </a>
+    </router-link>
   </li>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
-  name: 'PokemonItem',
+  name: "PokemonItem",
   props: {
     name: String,
-    pokemonUrl: String
+    pokemonUrl: String,
   },
   data() {
     return {
-      details: []
-    }
+      details: [],
+    };
   },
   methods: {
     generatePokemon() {
       axios.get(this.pokemonUrl).then((response) => {
-        this.details = response.data
-      })
-    }
+        this.details = response.data;
+      });
+    },
   },
   mounted() {
-    this.generatePokemon()
-  }
-}
+    this.generatePokemon();
+  },
+};
 </script>
 
 <style scoped>

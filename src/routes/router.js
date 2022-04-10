@@ -8,12 +8,13 @@ import PokemonPage from "@/pages/PokemonPage";
 
 const routes = [
   {
-    path: "/home",
+    path: "/",
     component: PokemonList,
   },
   {
     path: "/stats",
     component: PokemonPage,
+    props: (route) => ({ pokemonUrl: route.query.q }),
   },
 ];
 

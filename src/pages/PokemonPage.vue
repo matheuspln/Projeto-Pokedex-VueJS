@@ -1,11 +1,15 @@
 <template>
-  <main>
-    <h1>Parabens, você chegou aqui</h1>
-  </main>
+  <main>Isso é um teste</main>
 </template>
 
 <script>
-export default {}
+import VueRouter from "vue-router";
+export default {
+  name: "PokemonPage",
+  mounted() {
+    console.warn(this.$attrs);
+  },
+};
 </script>
 
 <style></style>

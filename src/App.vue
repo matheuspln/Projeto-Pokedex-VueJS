@@ -1,22 +1,20 @@
 <template>
   <div id="app">
     <Header />
-    <PokemonList />
+    <router-view path="$router.key" />
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
-import PokemonList from '@/pages/PokemonList.vue'
-import '@/global.css'
+import Header from "@/components/Header.vue";
+import "@/global.css";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
-    PokemonList
-  }
-}
+  },
+};
 </script>
 
 <style></style>
