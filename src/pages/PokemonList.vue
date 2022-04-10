@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import api from '@/services/api.js'
-import PokemonItem from '../components/PokemonItem'
+import api from "@/services/api.js";
+import PokemonItem from "../components/PokemonItem";
 export default {
-  name: 'PokemonList',
+  name: "PokemonList",
   components: {
-    PokemonItem
+    PokemonItem,
   },
   data() {
     return {
@@ -30,18 +30,18 @@ export default {
       statsList: [],
       limit: 30,
       offset: 0,
-      loading: false
-    }
+      loading: false,
+    };
   },
   methods: {
     async getPokemon() {
-      this.loading = true
+      this.loading = true;
       await api
         .get(`pokemon?limit=${this.limit}&offset=${this.offset}`)
         .then((response) => {
-          this.pokemonList = response.data.results
-        })
-      this.loading = false
+          this.pokemonList = response.data.results;
+        });
+      this.loading = false;
     },
     scroll() {
       window.onscroll = () => {
@@ -52,25 +52,25 @@ export default {
             document.body.scrollTop
           ) +
             window.innerHeight ===
-          document.documentElement.offsetHeight
+          document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
           if (this.limit < 870) {
-            this.limit += 30
-            this.getPokemon()
+            this.limit += 30;
+            this.getPokemon();
           } else if (this.limit == 870) {
-            this.limit += 28
-            this.getPokemon()
+            this.limit += 28;
+            this.getPokemon();
           }
         }
-      }
-    }
+      };
+    },
   },
   mounted() {
-    this.getPokemon()
-    this.scroll()
-  }
-}
+    this.getPokemon();
+    this.scroll();
+  },
+};
 </script>
 
 <style scoped>
